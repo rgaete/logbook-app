@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Notes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container">    <meta charset="utf-8">
+
+
+    <a href="/"><h1>Notes</h1></a>
+
+    <p>
+        <a href="/noteEdit" th:href="@{/noteEdit}">Create</a>
+    </p>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Creation date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note : ${noteList}">
+            <td th:text="${note.id}"></td>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.summary} + '...'"></td>
+            <td th:text="${note.timestamp}"></td>
+            <td>
+                <a href="/noteView/1" th:href="@{/noteView/__${note.id}__}">View</a>
+                <a href="/noteEdit/1" th:href="@{/noteEdit/__${note.id}__}">Edit</a>
+                <a href="/noteDelete/1" th:href="@{/noteDelete/__${note.id}__}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="repeated-words">
+        - <span th:each="word: ${repeatedWords}"><a th:href="'/notes?filter=' + ${word}" th:text="${word}" /> - </span>
+    </div>
+
+</div>
+
+</body>
+</html>

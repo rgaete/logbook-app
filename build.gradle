@@ -1,0 +1,59 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
+
+group = 'com.rgfp.psd'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.webjars:jquery:2.1.4')
+	compile('org.webjars:bootstrap:3.3.7')
+	compile('org.projectlombok:lombok:1.16.20')
+	runtime('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+jacocoTestReport {
+	reports {
+		html.destination "$buildDir/reports/jacoco/html"
+	}
+	executionData = files("$buildDir/jacoco/test.exec")
+}
+
+sonarqube {
+	properties {
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.projectName", "LogBook"
+		property 'sonar.login','e889bc37f969ad6172cf2793c168d3910f128be0'
+		property "sonar.organization", "rgaete-github"
+		property "sonar.java.source", "8"
+		property "sonar.issuesReport.html.enable", "true"
+		property "sonar.scm.disabled", "true"
+		property "sonar.java.coveragePlugin", "jacoco"
+		property "sonar.jacoco.reportPath", "$buildDir/jacoco/unitTest.exec"
+	}
+}

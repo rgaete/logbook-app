@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Notes</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+
+    <a href="/"><h1>Notes</h1></a>
+
+    <label for="id">Id</label>
+    <p id="id" th:text="${note.id}" />
+
+    <label for="title">Title</label>
+    <p id="title" th:text="${note.title}" />
+
+    <label for="content">Content</label>
+    <p id="content" th:text="${note.content}" />
+
+    <label for="creationDate">Creation Date</label>
+    <p id="creationDate" th:text="${note.timestamp}" />
+
+
+    </form>
+
+</div>
+
+</body>
+</html>
