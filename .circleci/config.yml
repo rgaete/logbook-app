@@ -38,4 +38,18 @@ jobs:
       # run tests!
       - run: gradle test
 
+  sonarqube:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run: gradle sonarqube
 
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - sonarqube:
+          requires:
+            - build
