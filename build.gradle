@@ -47,13 +47,13 @@ jacocoTestReport {
 sonarqube {
 	properties {
 		property "sonar.host.url", "https://sonarcloud.io"
-		property "sonar.projectName", "LogBook-App"
+		property "sonar.projectName", "LogBookApp"
 		property 'sonar.login','e889bc37f969ad6172cf2793c168d3910f128be0'
 		property "sonar.organization", "rgaete-github"
 		property "sonar.java.source", "8"
 		property "sonar.issuesReport.html.enable", "true"
 		property "sonar.scm.disabled", "true"
 		property "sonar.java.coveragePlugin", "jacoco"
-		property "sonar.jacoco.reportPath", "$buildDir/jacoco/unitTest.exec"
+		property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
 	}
 }
