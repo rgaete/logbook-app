@@ -31,7 +31,6 @@
             <th>Id</th>
             <th>Title</th>
             <th>Summary</th>
-            <th>Creation date</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -39,7 +38,6 @@
         <tr th:each="note : ${noteList}">
             <td th:text="${note.id}"></td>
             <td><a th:href="@{/noteView/__${note.id}__}" th:text="${note.title}" /></td>
-            <td th:text="${note.summary} + '...'"></td>
             <td th:text="${note.timestamp}"></td>
             <td><div th:id="'actions_note_' + ${note.id}" class="btn-group" role="group">
                 <a class="btn btn-primary" href="/noteEdit/1" th:href="@{/noteEdit/__${note.id}__}">Edit</a>
@@ -49,16 +47,6 @@
         </tr>
         </tbody>
     </table>
-
-    <form class="form-group" th:action="@{/notes}" th:object="${note}" method="get">
-        <input type="text"  name="filter" id="filter" />
-        <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search" />
-        </button>
-        <div id="repeated-words" class="btn-group" role="group">
-            <a class="btn btn-info" th:each="word: ${repeatedWords}" th:href="'/notes?filter=' + ${word}" th:text="${word}" />
-        </div>
-    </form>
 
 </div>
 </body>

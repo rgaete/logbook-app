@@ -20,12 +20,10 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     private List<Note> allNotes;
-    private HashMap<String, Integer> dictionary;
 
     @PostConstruct
     public void syncAllNotes() {
         this.allNotes = this.findAll();
-        this.updateDictionary();
     }
 
     public List<Note> findAll() {
@@ -48,53 +46,6 @@ public class NoteService {
     public void deleteNote(Long id) {
         noteRepository.deleteById(id);
         this.syncAllNotes();
-    }
-
-    public List<String> getRepeatedWords(Integer repetitionFactor) {
-
-        ArrayList<String> repeatedWords = new ArrayList<>();
-
-        for (String key : dictionary.keySet()) {
-            if (dictionary.get(key) > repetitionFactor) {
-                repeatedWords.add(key);
-            }
-        }
-        return repeatedWords;
-
-    }
-
-    public List<Note> findAllBy(String filter) {
-
-        List<Note> notes = new ArrayList<>();
-
-        for (Note note: this.allNotes) {
-            if (note.getContent().toLowerCase().contains(filter.toLowerCase())) {
-                notes.add(note);
-            }
-
-        }
-
-        return notes;
-
-    }
-
-    public List<String> getRepeatedWords() {
-        return this.getRepeatedWords(2);
-    }
-
-    private void updateDictionary() {
-        dictionary = new HashMap<>();
-        String unwantedCharacters = "[,|.|:|?|!]";
-
-        for(Note note : allNotes) {
-            for (String word: note.getContent().toLowerCase().replaceAll(unwantedCharacters, "").split(" ")) {
-                if (dictionary.containsKey(word)) {
-                    dictionary.replace(word, dictionary.get(word) + 1);
-                } else {
-                    dictionary.put(word, 1);
-                }
-            }
-        }
     }
 
     List<Note> getAllNotes() {

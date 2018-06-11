@@ -121,39 +121,4 @@ public class NoteServiceTest {
         notes.add(n2);
     }
 
-
-    @Test
-    public void topWordsShouldReturnWordsRepeatedMoreThanTwice() {
-
-        noteService.syncAllNotes();
-
-        List<String> topWords = noteService.getRepeatedWords(2);
-
-        assertNotEquals(-1, topWords.indexOf("note"));
-        assertNotEquals(-1, topWords.indexOf("with"));
-        assertNotEquals(-1, topWords.indexOf("words"));
-        assertNotEquals(-1, topWords.indexOf("java"));
-
-        assertEquals(-1, topWords.indexOf("spring"));
-        assertEquals(-1, topWords.indexOf("first"));
-        assertEquals(-1, topWords.indexOf("second"));
-        assertEquals(-1, topWords.indexOf("third"));
-        assertEquals(-1, topWords.indexOf("automation"));
-        assertEquals(-1, topWords.indexOf("integration"));
-        assertEquals(-1, topWords.indexOf("any"));
-        assertEquals(-1, topWords.indexOf("more"));
-
-    }
-
-    @Test
-    public void filterShouldReturnNotesOnlyWithTheSpecifiedWord() {
-        noteService.syncAllNotes();
-
-        List<Note> notes = noteService.findAllBy("spring");
-
-        assertTrue(notes.contains(n1));
-        assertTrue(notes.contains(n2));
-        assertFalse(notes.contains(n3));
-    }
-
 }
