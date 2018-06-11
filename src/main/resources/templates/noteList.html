@@ -18,11 +18,13 @@
 <div class="container">    <meta charset="utf-8">
 
 
-    <a href="/"><h1>Notes</h1></a>
+    <h1>
+        <a href="/">Notes</a>
+        <a href="/noteEdit" th:href="@{/noteEdit}">
+                <span class="glyphicon glyphicon-pencil" />
+        </a>
+    </h1>
 
-    <p>
-        <a href="/noteEdit" th:href="@{/noteEdit}">Create</a>
-    </p>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -49,9 +51,16 @@
         </tbody>
     </table>
 
-    <div id="repeated-words" class="btn-group" role="group">
-        <a class="btn btn-info" th:each="word: ${repeatedWords}" th:href="'/notes?filter=' + ${word}" th:text="${word}" />
-    </div>
+    <form class="form-group" th:action="@{/notes}" th:object="${note}" method="get">
+        <input type="text"  name="filter" id="filter" />
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" />
+        </button>
+        <div id="repeated-words" class="btn-group" role="group">
+            <a class="btn btn-info" th:each="word: ${repeatedWords}" th:href="'/notes?filter=' + ${word}" th:text="${word}" />
+        </div>
+    </form>
+
 </div>
 
 </body>
