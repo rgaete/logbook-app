@@ -1,14 +1,11 @@
 package com.rgfp.psd.logbook.service;
 
 import com.rgfp.psd.logbook.domain.Note;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +13,6 @@ import java.util.Optional;
 public class NoteService {
 
     @Autowired
-    @Setter
     private NoteRepository noteRepository;
 
     private List<Note> allNotes;
@@ -52,4 +48,7 @@ public class NoteService {
         return allNotes;
     }
 
+    public void setNoteRepository(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
+    }
 }
