@@ -21,8 +21,9 @@ public class NoteController {
     // displays all notes
     @RequestMapping(value={"/", "notes"})
     public String noteList(Model model, @RequestParam(required = false, name = "filter") String filter) {
-        List<Note> notes = noteService.findAll();
+        List<Note> notes = (null == filter) ? noteService.findAll() : noteService.findAllBy(filter);
         model.addAttribute("noteList", notes);
+        model.addAttribute("repeatedWords", noteService.getRepeatedWords());
         return "noteList";
     }
 
