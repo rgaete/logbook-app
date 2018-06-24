@@ -3,6 +3,7 @@ package com.rgfp.psd.logbook.domain;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class NoteTest {
 
@@ -33,4 +34,24 @@ public class NoteTest {
 
     }
 
+    @Test
+    public void cloneShouldReturnANewNoteWithSameContentAndTitle() throws Exception {
+
+        String title = "Texto";
+        String content = "Texto para la nota";
+        long id = 1l;
+
+        Note note = new Note();
+        note.setId(id);
+        note.setTitle(title);
+        note.setContent(content);
+
+        Note clone = note.clone();
+
+        assertEquals(title, clone.getTitle());
+        assertEquals(content, clone.getContent());
+        assertNotEquals(id, clone.getId());
+
+
+    }
 }

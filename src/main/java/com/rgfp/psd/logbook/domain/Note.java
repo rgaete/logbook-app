@@ -56,4 +56,11 @@ public class Note {
         return this.content.length() > 239 ? this.content.substring(0, 239) : this.content;
     }
 
+    public Note clone() {
+        Note newNote = new Note();
+        newNote.setContent(this.content);
+        newNote.setTitle(this.title);
+        return newNote;
+    }
+
 }
