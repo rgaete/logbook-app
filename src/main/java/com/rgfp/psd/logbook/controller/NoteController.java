@@ -22,7 +22,8 @@ public class NoteController {
     // displays all notes
     @RequestMapping(value={"/", "notes"})
     public String noteList(Model model, @RequestParam(required = false, name = "filter") String filter) {
-        List<Note> notes = (null == filter) ? noteService.findAll() : noteService.findAllBy(filter);
+        // filter feature not yet implemented
+        List<Note> notes = noteService.findAll();
         model.addAttribute("noteList", notes);
         model.addAttribute("repeatedWords", noteService.getRepeatedWords());
         return "noteList";
@@ -57,8 +58,7 @@ public class NoteController {
     // clones a note. creating a new one
     @RequestMapping(value={"/noteClone","/noteClone/{id}"}, method = RequestMethod.GET)
     public String noteClone(Model model, @PathVariable(name = "id") Long id) {
-        Note note = noteService.findOne(id).get();
-        noteService.saveNote(note.clone());
+        // not implemented
         model.addAttribute("noteList", noteService.findAll());
         return "noteList";
 

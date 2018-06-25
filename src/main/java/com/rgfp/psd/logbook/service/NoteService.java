@@ -48,36 +48,11 @@ public class NoteService {
         this.syncAllNotes();
     }
 
-    public List<String> getRepeatedWords(Integer repetitionFactor) {
-
-        ArrayList<String> repeatedWords = new ArrayList<>();
-
-        for (String key : dictionary.keySet()) {
-            if (dictionary.get(key) > repetitionFactor) {
-                repeatedWords.add(key);
-            }
-        }
-        return repeatedWords;
-
-    }
-
-    public List<Note> findAllBy(String filter) {
-
-        List<Note> notes = new ArrayList<>();
-
-        for (Note note: this.allNotes) {
-            if (note.getContent().toLowerCase().contains(filter.toLowerCase())) {
-                notes.add(note);
-            }
-
-        }
-
-        return notes;
-
-    }
-
     public List<String> getRepeatedWords() {
-        return this.getRepeatedWords(2);
+
+        // not implemented
+        return new ArrayList<>();
+
     }
 
     private void updateDictionary() {
