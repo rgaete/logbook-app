@@ -51,4 +51,16 @@ public class Note {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getSummary() {
+        return this.content.length() > 239 ? this.content.substring(0, 239) : this.content;
+    }
+
+    public Note clone() {
+        Note newNote = new Note();
+        newNote.setContent(this.content);
+        newNote.setTitle(this.title);
+        return newNote;
+    }
+
 }
