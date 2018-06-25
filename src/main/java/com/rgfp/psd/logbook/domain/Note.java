@@ -52,4 +52,8 @@ public class Note {
         this.content = content;
     }
 
+    public String getSummary() {
+        // not implemented
+        return "";
+    }
 }
