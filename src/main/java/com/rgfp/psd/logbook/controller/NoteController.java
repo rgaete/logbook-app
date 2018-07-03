@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class NoteController {
@@ -57,8 +56,7 @@ public class NoteController {
     // clones a note. creating a new one
     @RequestMapping(value={"/noteClone","/noteClone/{id}"}, method = RequestMethod.GET)
     public String noteClone(Model model, @PathVariable(name = "id") Long id) {
-        Note note = noteService.findOne(id).get();
-        noteService.saveNote(note.clone());
+        noteService.cloneNote(id);
         model.addAttribute("noteList", noteService.findAll());
         return "noteList";
 

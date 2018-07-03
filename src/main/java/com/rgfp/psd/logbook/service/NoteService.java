@@ -102,4 +102,10 @@ public class NoteService {
     public void setNoteRepository(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
+
+    public void cloneNote(Long id) {
+        Note note = this.findOne(id).get();
+        Note clonedNote = note.clone();
+        this.saveNote(clonedNote);
+    }
 }
