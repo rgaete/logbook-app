@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class NoteController {
@@ -55,7 +54,17 @@ public class NoteController {
         return "noteList";
     }
 
-    // clones a note. creating a new one
+    // deletes a note
+    @RequestMapping(value="/noteDelete/{id}", method = RequestMethod.GET)
+    public String noteDelete(Model model, @PathVariable(required = true, name = "id") Long id) {
+        noteService.deleteNote(id);
+        model.addAttribute("noteList", noteService.findAll());
+        return "noteList";
+    }
+
+
+
+    // not implemented, should clone a note. creating a new one
     @RequestMapping(value={"/noteClone","/noteClone/{id}"}, method = RequestMethod.GET)
     public String noteClone(Model model, @PathVariable(name = "id") Long id) {
         // not implemented
@@ -64,12 +73,5 @@ public class NoteController {
 
     }
 
-    // deletes a note
-    @RequestMapping(value="/noteDelete/{id}", method = RequestMethod.GET)
-    public String noteDelete(Model model, @PathVariable(required = true, name = "id") Long id) {
-        noteService.deleteNote(id);
-        model.addAttribute("noteList", noteService.findAll());
-        return "noteList";
-    }
 
 }

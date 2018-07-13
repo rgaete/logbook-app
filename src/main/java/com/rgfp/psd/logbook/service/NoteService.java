@@ -21,9 +21,13 @@ public class NoteService {
     private HashMap<String, Integer> dictionary;
 
     @PostConstruct
-    public void syncAllNotes() {
+    void syncAllNotes() {
         this.allNotes = this.findAll();
         this.updateDictionary();
+    }
+
+    void setNoteRepository(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
     }
 
     public List<Note> findAll() {
@@ -48,10 +52,39 @@ public class NoteService {
         this.syncAllNotes();
     }
 
-    public List<String> getRepeatedWords() {
+    List<Note> getAllNotes() {
+        return allNotes;
+    }
 
-        // not implemented
+    /* -------------------- unimplemented methods --------------------- */
+
+    // should filter notes by a given string
+    public List<Note> findAllBy(String filter) {
+        return this.allNotes;
+    }
+
+    // should clone a note in the DB
+    public void cloneNote(Long id) {
+    }
+
+    public List<String> getRepeatedWords() {
         return new ArrayList<>();
+    }
+
+
+    // unused methods, needed for the repeated words feature
+
+    // returns all words repeated more than repetitionFactor times
+    List<String> getRepeatedWords(Integer repetitionFactor) {
+
+        ArrayList<String> repeatedWords = new ArrayList<>();
+
+        for (String key : dictionary.keySet()) {
+            if (dictionary.get(key) > repetitionFactor) {
+                repeatedWords.add(key);
+            }
+        }
+        return repeatedWords;
 
     }
 
@@ -70,11 +103,4 @@ public class NoteService {
         }
     }
 
-    List<Note> getAllNotes() {
-        return allNotes;
-    }
-
-    public void setNoteRepository(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
-    }
 }

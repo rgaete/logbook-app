@@ -8,8 +8,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -115,6 +117,29 @@ public class NoteServiceTest {
 
         // tear down
         notes.add(n2);
+    }
+
+    @Test
+    public void topWordsShouldReturnWordsRepeatedMoreThanTwice() {
+
+        noteService.syncAllNotes();
+
+        List<String> topWords = noteService.getRepeatedWords(2);
+
+        assertNotEquals(-1, topWords.indexOf("note"));
+        assertNotEquals(-1, topWords.indexOf("with"));
+        assertNotEquals(-1, topWords.indexOf("words"));
+        assertNotEquals(-1, topWords.indexOf("java"));
+
+        assertEquals(-1, topWords.indexOf("spring"));
+        assertEquals(-1, topWords.indexOf("first"));
+        assertEquals(-1, topWords.indexOf("second"));
+        assertEquals(-1, topWords.indexOf("third"));
+        assertEquals(-1, topWords.indexOf("automation"));
+        assertEquals(-1, topWords.indexOf("integration"));
+        assertEquals(-1, topWords.indexOf("any"));
+        assertEquals(-1, topWords.indexOf("more"));
+
     }
 
 }
