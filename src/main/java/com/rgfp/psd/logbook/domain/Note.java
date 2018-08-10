@@ -56,4 +56,27 @@ public class Note {
         // not implemented
         return "";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Note note = (Note) o;
+
+        if (title != null ? !title.equals(note.title) : note.title != null) return false;
+        if (timestamp != null ? !timestamp.equals(note.timestamp) : note.timestamp != null) return false;
+        return content != null ? content.equals(note.content) : note.content == null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", timestamp=" + timestamp +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

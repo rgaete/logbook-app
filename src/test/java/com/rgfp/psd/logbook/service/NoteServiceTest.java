@@ -9,10 +9,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,17 +36,17 @@ public class NoteServiceTest {
     public void setup() {
         notes = new ArrayList<>();
         n1 = new Note();
-        n1.setId(1l);
+        n1.setId(1L);
         n1.setTitle("firstNote");
         n1.setContent("First note, with words java spring automation.");
 
         n2 = new Note();
-        n2.setId(2l);
+        n2.setId(2L);
         n2.setTitle("secondNote");
         n2.setContent("Second note: with words java spring integration.");
 
         n3 = new Note();
-        n3.setId(3l);
+        n3.setId(3L);
         n3.setTitle("thirdNote");
         n3.setContent("Third note! with words java, any more?");
 
@@ -51,6 +55,8 @@ public class NoteServiceTest {
         notes.add(n3);
 
         when(noteRepositoryMock.findAll()).thenReturn(notes);
+        when(noteRepositoryMock.findById(1L)).thenReturn(Optional.ofNullable(n1));
+        when(noteRepositoryMock.findById(2L)).thenReturn(Optional.ofNullable(n2));
 
         noteService = new NoteService();
         noteService.setNoteRepository(noteRepositoryMock);
@@ -140,6 +146,69 @@ public class NoteServiceTest {
         assertEquals(-1, topWords.indexOf("any"));
         assertEquals(-1, topWords.indexOf("more"));
 
+    }
+
+
+    @Test
+    public void shouldCallRepositorySave() {
+        //Arrange --> before
+
+        // Act
+        noteService.cloneNote(2L);
+
+        // Assert
+        verify(noteRepositoryMock).save(any(Note.class));
+    }
+
+    @Test
+    public void shouldCloneNoteOne() {
+
+        noteService.cloneNote(1L);
+
+        Note note = new Note();
+        note.setTitle(n1.getTitle());
+        note.setContent(n1.getContent());
+
+        verify(noteRepositoryMock).save(eq(note));
+
+    }
+
+    @Test
+    public void shouldCloneNoteTwo() {
+
+        noteService.cloneNote(2L);
+
+        Note note = new Note();
+        note.setTitle(n2.getTitle());
+        note.setContent(n2.getContent());
+
+        verify(noteRepositoryMock).save(eq(note));
+
+    }
+
+    @Test
+    public void shouldCloneTwoNotes() {
+
+        noteService.cloneNote(1L);
+
+        Note note = new Note();
+        note.setTitle(n1.getTitle());
+        note.setContent(n1.getContent());
+
+        notes.add(note);
+
+        verify(noteRepositoryMock).save(eq(note));
+
+
+        noteService.cloneNote(8L);
+
+        note = new Note();
+        note.setTitle(n2.getTitle());
+        note.setContent(n2.getContent());
+
+        notes.add(note);
+
+        verify(noteRepositoryMock).save(eq(note));
     }
 
 }
